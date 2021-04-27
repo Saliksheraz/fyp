@@ -1,0 +1,40 @@
+{% extends 'administrator/baseTemplate.html' %}
+{% block navbar %}
+    <li class="breadcrumb-item">Add Company</li>
+{% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="" style="padding: 50px">
+        <form class="form-horizontal form_middle" enctype='multipart/form-data' id="new_company_form"
+              method="POST">{% csrf_token %}
+            <div class="row mb-4">
+                <div class="col">
+                    <div class="form-outline">
+                        <input name="name" type="text" id="form6Example1" class="form-control"/>
+                        <label class="form-label" for="form6Example1">Team Name</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-outline">
+                        <select class="form-control" id="id_user" name="{{ form.company.name }}">
+                            {% for choice in form.company.field.choices %}
+                                <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                            {% endfor %}
+                        </select>
+                        <label class="form-label" for="form6Example1">Company Name</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col">
+                    <div class="form-outline">
+                        <input name="name" type="text" id="form6Example1" class="form-control"/>
+                        <label class="form-label" for="form6Example1">Team Description</label>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block mb-4" style="margin-top: 40px">Submit</button>
+        </form>
+    </div>
+{% endblock %}

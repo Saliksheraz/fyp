@@ -1,0 +1,14 @@
+    'default': {
+        'OPTIONS': {
+            "init_command": "SET foreign_key_checks = 0;",
+        },
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'respberrypi',
+        'USER': 'root',
+        'PASSWORD': 'Mcszindabad3',
+        'HOST': 'localhost',
+        'PORT': '3307',
+    }
+
+
+
