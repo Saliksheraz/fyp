@@ -169,11 +169,37 @@
                                 <hr>
                                 <div class="row">
                                     <div class="col-sm-3">
+                                        <span style="color: red">{{ form.company.errors }}</span>
+                                        <h6 class="mb-0">Company*</h6>
+                                    </div>
+                                    <div class="col-sm-8 text-secondary">
+                                        <select class="form-control" id="id_company" name="{{ form.company.name }}">
+                                            {% for choice in form.company.field.choices %}
+                                                <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                                            {% endfor %}
+                                        </select></div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <span style="color: red">{{ form.team.errors }}</span>
+                                        <h6 class="mb-0">Team*</h6>
+                                    </div>
+                                    <div class="col-sm-8 text-secondary">
+                                        <select class="form-control" id="id_team" name="{{ form.team.name }}">
+                                            {% for choice in form.team.field.choices %}
+                                                <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                                            {% endfor %}
+                                        </select></div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
                                         <span style="color: red">{{ form.gender.errors }}</span>
                                         <h6 class="mb-0">Gender*</h6>
                                     </div>
                                     <div class="col-sm-8 text-secondary">
-                                        <select class="form-control" id="id_user" name="{{ form.gender.name }}">
+                                        <select class="form-control" id="" name="{{ form.gender.name }}">
                                             {% for choice in form.gender.field.choices %}
                                                 <option value="{{ choice.0 }}">{{ choice.1 }}</option>
                                             {% endfor %}

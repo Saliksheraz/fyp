@@ -1,12 +1,16 @@
 from django.db import models
-from django.contrib.auth.models import User, Group
-from administrator.models import Company
+from django.contrib.auth.models import User
+from administrator.models import Company, Team
 
 
 class Profile(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     company = models.ForeignKey(Company, on_delete=models.CASCADE, blank=True, null=True)
+    team = models.ForeignKey(Team, on_delete=models.CASCADE, blank=True, null=True)
+
     level = models.CharField(max_length=50, default='team_member', null=True)
+    levelInt = models.IntegerField(default=10, null=True)
+
     phone = models.CharField(max_length=50, null=True)
     mobile = models.CharField(max_length=50, null=True)
     address = models.CharField(max_length=300, null=True)

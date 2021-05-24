@@ -2,7 +2,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django import forms
 
 #################### Django User Registration Form to Register a new User ###########
-from administrator.models import Company
+from administrator.models import Company, Team
 
 
 class UserRegisterForm(UserCreationForm):
@@ -26,6 +26,7 @@ class UserRegisterForm(UserCreationForm):
     level_choices = ()
     level = forms.ChoiceField(choices=level_choices, required=False)
     company = forms.ModelChoiceField(queryset=Company.objects.none(), required=False, label='Company')
+    team = forms.ModelChoiceField(queryset=Team.objects.none(), required=False, label='Company')
 
     def __init__(self, request, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -45,7 +46,7 @@ def userLevelCheck(self, request):
     elif request.user.profile.level == 'manager':
         level_choices += ('team_member', 'Team Member')
     self.fields['level'].choices = level_choices
-
+    self.fields['team'].queryset = Team.objects.all()
     if request.user.profile.level == 'owner' or request.user.is_superuser:
         self.fields['company'].queryset = Company.objects.all()
     elif request.user.profile.level == 'ceo':

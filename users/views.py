@@ -35,7 +35,7 @@ def register(request):
                              f'Your Account is successfully created!!!, Please wait till you are authorized to LogIn')
             return redirect('homePage')
         else:
-            print(form.errors)
+            messages.warning(request, form.errors)
     else:
         form = UserRegisterForm(request)
     context = {'form': form}
