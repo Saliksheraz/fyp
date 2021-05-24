@@ -98,8 +98,13 @@
                 <!-- ============================================================== -->
                 <ul class="navbar-nav float-left mr-auto">
                     <li class="nav-item d-none d-md-block"><a class="nav-link sidebartoggler waves-effect waves-light"
-                                                              href="javascript:void(0)" data-sidebartype="mini-sidebar"><i
-                            class="mdi mdi-menu font-24"></i></a></li>
+                                                              href="javascript:void(0)" data-sidebartype="mini-sidebar">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-arrow-left-right" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                  d="M1 11.5a.5.5 0 0 0 .5.5h11.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 11H1.5a.5.5 0 0 0-.5.5zm14-7a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H14.5a.5.5 0 0 1 .5.5z"/>
+                        </svg>
+                    </a></li>
                     <!-- ============================================================== -->
                     <!-- create new -->
                     <!-- ============================================================== -->
@@ -173,17 +178,24 @@
                 <ul id="sidebarnav" class="p-t-30" style="margin-left: 10px">
                     <li class="sidebar-item"><a class="sidebar-link waves-effect waves-dark sidebar-link"
                                                 href="{% url 'homePage' %}" aria-expanded="false">
+
                         <span class="hide-menu">Dashboard</span></a></li>
                     {% if request.user.is_superuser %}
-                        <li class="sidebar-item"><a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                                    href="{% url 'addCompany' %}" aria-expanded="false">
-                            <span class="hide-menu">Add Company</span></a></li>
-                        <li class="sidebar-item"><a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                                    href="{% url 'addTeam' %}" aria-expanded="false">
-                            <span class="hide-menu">Add Team</span></a></li>
-                        <li class="sidebar-item"><a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                                    href="{% url 'register' %}" aria-expanded="false"><span
-                                class="hide-menu">Add User</span></a></li>
+                    <li class="sidebar-item"><a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                                href="{% url 'addCompany' %}" aria-expanded="false">
+                        <span class="hide-menu">Add Company</span></a></li>
+                    <li class="sidebar-item"><a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                                href="{% url 'addTeam' %}" aria-expanded="false">
+                        <span class="hide-menu">Add Team</span></a></li>
+                    <li class="sidebar-item"><a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                                href="{% url 'createTask' %}" aria-expanded="false">
+                        <span class="hide-menu">Create Task</span></a></li>
+                    <li class="sidebar-item"><a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                                href="{% url 'viewTasks' %}" aria-expanded="false">
+                        <span class="hide-menu">View Tasks</span></a></li>
+                    <li class="sidebar-item"><a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                                href="{% url 'register' %}" aria-expanded="false"><span
+                            class="hide-menu">Add User</span></a></li>
                     {% endif %}
                     <li class="sidebar-item"><a class="sidebar-link waves-effect waves-dark sidebar-link"
                                                 href="{% url 'profile' %}" aria-expanded="false"><span
@@ -228,11 +240,11 @@
         <!-- Container fluid  -->
         <!-- ============================================================== -->
         {% if messages %}
-            {% for message in messages %}
-                <div class="alert alert-{{ message.tags }}">
-                    {{ message }}
-                </div>
-            {% endfor %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+        {% endfor %}
         {% endif %}
         <div class="container-fluid">
             <!-- ============================================================== -->
@@ -250,7 +262,6 @@
         <!-- footer -->
         <!-- ============================================================== -->
         <footer class="footer text-center">
-            All Rights Reserved by Matrix-admin. Designed and Developed by <a href="https://wrappixel.com">WrapPixel</a>.
         </footer>
         <!-- ============================================================== -->
         <!-- End footer -->

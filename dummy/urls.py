@@ -15,7 +15,9 @@ urlpatterns = [
     url(r'profile/', profile, name='profile'),
     url(r'addCompany/', views.addCompany, name='addCompany'),
     url(r'addTeam/', views.addTeam, name='addTeam'),
-
+    path('createTask/', views.createTask, name='createTask'),
+    path('viewTasks/', views.viewTasks, name='viewTasks'),
+    url(r'attendance/(?P<pk>[0-9]+)/$', views.attendance, name='attendance'),
     path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

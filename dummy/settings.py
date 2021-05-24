@@ -76,8 +76,15 @@ WSGI_APPLICATION = 'dummy.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'mydatabase',
+        'OPTIONS': {
+            "init_command": "SET foreign_key_checks = 0;",
+        },
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'fyp',
+        'USER': 'root',
+        'PASSWORD': 'Mcszindabad3',
+        'HOST': 'localhost',
+        'PORT': '3307',
     }
 }
 
@@ -104,7 +111,6 @@ TEMPLATE_LOADERS = (
     'django.template.loaders.app_directories.Loader',
 )
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
@@ -125,6 +131,8 @@ BOOTSTRAP4 = {
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),

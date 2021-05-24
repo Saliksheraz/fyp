@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django_countries.fields import CountryField
 
@@ -22,8 +23,41 @@ class Company(models.Model):
 class Team(models.Model):
     name = models.CharField(max_length=200, verbose_name="Team", null=True)
     desc = models.TextField(verbose_name="Description", null=True)
-    head = models.CharField(max_length=200, verbose_name="Head", null=True)
+    head = models.CharField(max_length=200, verbose_name="Head", null=True, blank=True)
     company = models.ForeignKey(Company, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return self.name
+
+
+class Tasks(models.Model):
+    name = models.CharField(max_length=200, null=True)
+    loc = models.CharField(max_length=200, null=True, blank=True)
+    loc_name = models.CharField(max_length=200, null=True, blank=True)
+    feedback = models.CharField(max_length=200, null=True, blank=True)
+    datetime = models.DateTimeField(auto_now=True, null=True, blank=True)
+    desc = models.TextField(verbose_name="Description", null=True, blank=True)
+    team = models.ForeignKey(Team, on_delete=models.CASCADE, blank=True, null=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.name
+
+
+class Attendance(models.Model):
+    latitude = models.CharField(max_length=50, null=True)
+    longitude = models.CharField(max_length=50, null=True)
+    accuracy = models.CharField(max_length=50, null=True)
+    picture = models.ImageField(null=True, blank=True)
+    feedback = models.CharField(max_length=200, null=True, blank=True)
+    datetime = models.DateTimeField(auto_now=True, null=True)
+    status_choice = [
+        ('Completed', 'Completed'),
+        ('Pending', 'Pending'),
+    ]
+    status = models.CharField(max_length=100, choices=status_choice, null=True)
+    task = models.ForeignKey(Tasks, on_delete=models.CASCADE, blank=True, null=True)
+    user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return "AttendanceObj of " + str(self.task)

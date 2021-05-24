@@ -1,56 +1,92 @@
 {% extends 'administrator/baseTemplate.html' %}
 {% load static %}
 {% block navbar %}
-    <li class="breadcrumb-item">Home Page</li>
+<li class="breadcrumb-item">Home Page</li>
 {% endblock %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <div class="card" style="padding: 10px">
-        <div class="card-body">
-            <h5 class="card-title m-b-0">Registered Companies</h5>
-        </div>
-        <div class="table-responsive">
-            <table class="table" id="userTable">
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>City</th>
-                    <th>Country</th>
-                    <th>Email</th>
-                    <th>Postal Code</th>
-                    <th>Phone</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for each in allCompanies %}
-                    <tr>
-                    <td>"{{ each.name }}"</td>
-                        <td>{{ each.city }}</td>
-                        <td>{{ each.country }}</td>
-                        <td>{{ each.email }}</td>
-                        <td>{{ each.postal_code }}</td>
-                        <td>{{ each.phone1 }}</td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        </div>
+<div class="card" style="padding: 10px">
+    <div class="card-body">
+        <h5 class="card-title m-b-0">Registered Companies</h5>
     </div>
+    <div class="table-responsive">
+        <table class="table" id="companyTable">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>City</th>
+                <th>Country</th>
+                <th>Email</th>
+                <th>Postal Code</th>
+                <th>Phone</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for each in allCompanies %}
+            <tr>
+                <td>"{{ each.name }}"</td>
+                <td>{{ each.city }}</td>
+                <td>{{ each.country }}</td>
+                <td>{{ each.email }}</td>
+                <td>{{ each.postal_code }}</td>
+                <td>{{ each.phone1 }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="card" style="padding: 10px">
+    <div class="card-body">
+        <h5 class="card-title m-b-0">Registered Teams</h5>
+    </div>
+    <div class="table-responsive">
+        <table class="table" id="teamsTable">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Company</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for each in allTeams %}
+            <tr>
+                <td>"{{ each.name }}"</td>
+                <td>"{{ each.company }}"</td>
+                <td>"{{ each.desc }}"</td>
 
-    <script>
-        $(document).ready(function () {
-            $('#userTable').DataTable({
-                dom: 'Bfrtip',
-                lengthMenu: [
-                    [10, 25, 50],
-                    ['10 rows', '25 rows', '50 rows']
-                ],
-                buttons: [
-                    'copy', 'csv', 'excel', 'pdf', 'print', 'pageLength'
-                ]
-            });
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 
+<script>
+    $(document).ready(function () {
+        $('#companyTable').DataTable({
+            dom: 'Bfrtip',
+            lengthMenu: [
+                [10, 25, 50],
+                ['10 rows', '25 rows', '50 rows']
+            ],
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print', 'pageLength'
+            ]
         });
-    </script>
+        $('#teamsTable').DataTable({
+            dom: 'Bfrtip',
+            lengthMenu: [
+                [10, 25, 50],
+                ['10 rows', '25 rows', '50 rows']
+            ],
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print', 'pageLength'
+            ]
+        });
+
+    });
+</script>
 {% endblock %}
 

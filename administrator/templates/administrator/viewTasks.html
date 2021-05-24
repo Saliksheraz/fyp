@@ -1,0 +1,59 @@
+{% extends 'administrator/baseTemplate.html' %}
+{% load static %}
+{% block navbar %}
+<li class="breadcrumb-item">Home Page</li>
+{% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="card" style="padding: 10px">
+    <div class="card-body">
+        <h5 class="card-title m-b-0">Tasks</h5>
+    </div>
+    <div class="table-responsive">
+        <table class="table" id="tasksTable">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Location</th>
+                <th>Date Time</th>
+                <th>Description</th>
+                <th>Feedback</th>
+                <th>Team</th>
+                <th>#</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for each in allTasks %}
+            <tr>
+                <td>{{ each.name }}</td>
+                <td>{{ each.loc_name }}</td>
+                <td>{{ each.datetime }}</td>
+                <td>{{ each.desc }}</td>
+                <td>{{ each.feedback }}</td>
+                <td>{{ each.Team }}</td>
+                <td>
+                    <a href="attendance/{{each.id}}" type="button" class="btn btn-success">Attendance</a>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#tasksTable').DataTable({
+            dom: 'Bfrtip',
+            lengthMenu: [
+                [10, 25, 50],
+                ['10 rows', '25 rows', '50 rows']
+            ],
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print', 'pageLength'
+            ]
+        });
+    });
+</script>
+{% endblock %}
+
