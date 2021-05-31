@@ -1,7 +1,6 @@
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path
-from django.conf.urls import include, url
+from django.conf.urls import url
 from administrator import views
 from django.contrib.auth import views as auth_views
 from users import views as user_views
@@ -11,7 +10,6 @@ from django.urls import include, path
 from rest_framework import routers
 
 router = routers.DefaultRouter()
-router.register(r'users', views.UserViewSet)
 router.register(r'companies', views.CompanyViewSet)
 router.register(r'teams', views.TeamViewSet)
 router.register(r'tasks', views.TaskViewSet)

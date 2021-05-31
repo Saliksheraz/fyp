@@ -1,10 +1,9 @@
-from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from rest_framework import viewsets
-from django.contrib.auth.models import User, Group
 from administrator.models import Company, Team, Tasks, Reports, Attendance
-from administrator.serializers import UserSerializer, CompanySerializer, TeamSerializer, TasksSerializer, \
+from administrator.serializers import CompanySerializer, TeamSerializer, TasksSerializer, \
     AttendanceSerializer, ReportsSerializer
 from .forms import newCompanyForm, newTeamForm, newTaskForm, attendanceForm, reportSubmissionForm
 from rest_framework import permissions
@@ -107,12 +106,6 @@ def viewReports(request):
     allData = Reports.objects.all()
     context = {'allData': allData}
     return render(request, 'administrator/viewReports.html', context)
-
-
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all().order_by('-date_joined')
-    serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticated]
 
 
 class CompanyViewSet(viewsets.ModelViewSet):
