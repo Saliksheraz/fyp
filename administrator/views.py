@@ -1,8 +1,13 @@
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from administrator.models import Company, Team, Tasks
-from .forms import newCompanyForm, newTeamForm, newTaskForm, attendanceForm
+from rest_framework import viewsets
+from django.contrib.auth.models import User, Group
+from administrator.models import Company, Team, Tasks, Reports, Attendance
+from administrator.serializers import UserSerializer, CompanySerializer, TeamSerializer, TasksSerializer, \
+    AttendanceSerializer, ReportsSerializer
+from .forms import newCompanyForm, newTeamForm, newTaskForm, attendanceForm, reportSubmissionForm
+from rest_framework import permissions
 
 
 @login_required
@@ -19,6 +24,8 @@ def addCompany(request):
         form = newCompanyForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, "Company added successfully !!!")
+            return redirect('homePage')
         else:
             messages.warning(request, form.errors)
     form = newCompanyForm
@@ -32,6 +39,8 @@ def addTeam(request):
         form = newTeamForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, "Team created successfully !!!")
+            return redirect('viewTasks')
         else:
             messages.warning(request, form.errors)
     form = newTeamForm
@@ -44,7 +53,10 @@ def createTask(request):
     if request.method == "POST":
         form = newTaskForm(request.POST)
         if form.is_valid():
+            form.instance.createdBy = request.user
             form.save()
+            messages.success(request, "Task created successfully !!!")
+            return redirect('viewTasks')
         else:
             messages.warning(request, form.errors)
     form = newTaskForm
@@ -73,3 +85,61 @@ def attendance(request, pk):
     form = attendanceForm
     context = {'object': object, 'form': form}
     return render(request, 'administrator/attendance.html', context)
+
+
+@login_required
+def reportSubmit(request):
+    if request.method == 'POST':
+        form = reportSubmissionForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.instance.user = request.user
+            form.save()
+            return redirect('viewReports')
+        else:
+            messages.warning(request, form.errors)
+    form = reportSubmissionForm
+    context = {'form': form}
+    return render(request, 'administrator/reportSubmit.html', context)
+
+
+@login_required
+def viewReports(request):
+    allData = Reports.objects.all()
+    context = {'allData': allData}
+    return render(request, 'administrator/viewReports.html', context)
+
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all().order_by('-date_joined')
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+
+class CompanyViewSet(viewsets.ModelViewSet):
+    queryset = Company.objects.all()
+    serializer_class = CompanySerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+
+class TeamViewSet(viewsets.ModelViewSet):
+    queryset = Team.objects.all()
+    serializer_class = TeamSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+
+class TaskViewSet(viewsets.ModelViewSet):
+    queryset = Tasks.objects.all()
+    serializer_class = TasksSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+
+class AttendanceViewSet(viewsets.ModelViewSet):
+    queryset = Attendance.objects.all()
+    serializer_class = AttendanceSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+
+class ReportsViewSet(viewsets.ModelViewSet):
+    queryset = Reports.objects.all()
+    serializer_class = ReportsSerializer
+    permission_classes = [permissions.IsAuthenticated]

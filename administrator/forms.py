@@ -1,5 +1,5 @@
 from django import forms
-from .models import Company, Team, Tasks, Attendance
+from .models import Company, Team, Tasks, Attendance, Reports
 
 
 class newCompanyForm(forms.ModelForm):
@@ -17,10 +17,16 @@ class newTeamForm(forms.ModelForm):
 class newTaskForm(forms.ModelForm):
     class Meta:
         model = Tasks
-        fields = '__all__'
+        exclude = {'createdBy'}
 
 
 class attendanceForm(forms.ModelForm):
     class Meta:
         model = Attendance
-        exclude = {'datetime', 'user'}
+        exclude = {'dateCreation', 'user'}
+
+
+class reportSubmissionForm(forms.ModelForm):
+    class Meta:
+        model = Reports
+        exclude = {'dateCreation', 'user'}

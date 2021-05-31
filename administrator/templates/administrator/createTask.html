@@ -16,7 +16,7 @@
             </div>
             <div class="col">
                 <div class="form-outline">
-                    <select class="form-control" id="id_user" name="{{ form.Task.name }}">
+                    <select class="form-control" id="id_user" name="{{ form.team.name }}">
                         {% for choice in form.team.field.choices %}
                         <option value="{{ choice.0 }}">{{ choice.1 }}</option>
                         {% endfor %}
@@ -28,13 +28,13 @@
         <div class="row mb-4">
             <div class="col">
                 <div class="form-outline">
-                    <input name="desc" type="text" id="" class="form-control"/>
+                    <input name="desc" type="text" class="form-control"/>
                     <label class="form-label" for="form6Example1">Description</label>
                 </div>
             </div>
             <div class="col">
                 <div class="form-outline">
-                    <input name="desc" type="text" id="" class="form-control"/>
+                    <input name="loc_name" type="text" class="form-control"/>
                     <label class="form-label" for="form6Example1">Location</label>
                 </div>
             </div>
@@ -42,7 +42,7 @@
         <div class="row mb-4">
             <div class="col">
                 <div class="form-outline">
-                    <input name="desc" type="text" id="" class="form-control"/>
+                    <input type="text" class="form-control"/>
                     <label class="form-label" for="form6Example1">Feedback</label>
                 </div>
             </div>

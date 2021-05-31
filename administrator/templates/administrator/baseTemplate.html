@@ -178,9 +178,7 @@
                 <ul id="sidebarnav" class="p-t-30" style="margin-left: 10px">
                     <li class="sidebar-item"><a class="sidebar-link waves-effect waves-dark sidebar-link"
                                                 href="{% url 'homePage' %}" aria-expanded="false">
-
                         <span class="hide-menu">Dashboard</span></a></li>
-                    {% if request.user.is_superuser %}
                     <li class="sidebar-item"><a class="sidebar-link waves-effect waves-dark sidebar-link"
                                                 href="{% url 'addCompany' %}" aria-expanded="false">
                         <span class="hide-menu">Add Company</span></a></li>
@@ -194,9 +192,14 @@
                                                 href="{% url 'viewTasks' %}" aria-expanded="false">
                         <span class="hide-menu">View Tasks</span></a></li>
                     <li class="sidebar-item"><a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                                href="{% url 'reportSubmit' %}" aria-expanded="false">
+                        <span class="hide-menu">Submit Report</span></a></li>
+                    <li class="sidebar-item"><a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                                href="{% url 'viewReports' %}" aria-expanded="false">
+                        <span class="hide-menu">View Reports</span></a></li>
+                    <li class="sidebar-item"><a class="sidebar-link waves-effect waves-dark sidebar-link"
                                                 href="{% url 'register' %}" aria-expanded="false"><span
                             class="hide-menu">Add User</span></a></li>
-                    {% endif %}
                     <li class="sidebar-item"><a class="sidebar-link waves-effect waves-dark sidebar-link"
                                                 href="{% url 'profile' %}" aria-expanded="false"><span
                             class="hide-menu">Profile</span></a></li>
