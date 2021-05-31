@@ -1,9 +1,10 @@
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from rest_framework import viewsets
+from django.contrib.auth.models import User, Group
 from administrator.models import Company, Team, Tasks, Reports, Attendance
-from administrator.serializers import CompanySerializer, TeamSerializer, TasksSerializer, \
+from administrator.serializers import UserSerializer, CompanySerializer, TeamSerializer, TasksSerializer, \
     AttendanceSerializer, ReportsSerializer
 from .forms import newCompanyForm, newTeamForm, newTaskForm, attendanceForm, reportSubmissionForm
 from rest_framework import permissions
@@ -108,31 +109,36 @@ def viewReports(request):
     return render(request, 'administrator/viewReports.html', context)
 
 
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all().order_by('-date_joined')
+    serializer_class = UserSerializer
+
+
 class CompanyViewSet(viewsets.ModelViewSet):
     queryset = Company.objects.all()
     serializer_class = CompanySerializer
-    permission_classes = [permissions.IsAuthenticated]
+
 
 
 class TeamViewSet(viewsets.ModelViewSet):
     queryset = Team.objects.all()
     serializer_class = TeamSerializer
-    permission_classes = [permissions.IsAuthenticated]
+
 
 
 class TaskViewSet(viewsets.ModelViewSet):
     queryset = Tasks.objects.all()
     serializer_class = TasksSerializer
-    permission_classes = [permissions.IsAuthenticated]
+
 
 
 class AttendanceViewSet(viewsets.ModelViewSet):
     queryset = Attendance.objects.all()
     serializer_class = AttendanceSerializer
-    permission_classes = [permissions.IsAuthenticated]
+
 
 
 class ReportsViewSet(viewsets.ModelViewSet):
     queryset = Reports.objects.all()
     serializer_class = ReportsSerializer
-    permission_classes = [permissions.IsAuthenticated]
+
