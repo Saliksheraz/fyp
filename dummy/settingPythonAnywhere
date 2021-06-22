@@ -75,16 +75,16 @@ WSGI_APPLICATION = 'dummy.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
+     'default': {
         'OPTIONS': {
             "init_command": "SET foreign_key_checks = 0;",
         },
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'fyp',
-        'USER': 'root',
-        'PASSWORD': 'Mcszindabad3',
-        'HOST': 'localhost',
-        'PORT': '3307',
+        'NAME': 'SalesAndMarketin$default',
+        'USER': 'SalesAndMarketin',
+        'PASSWORD': 'Hello123',
+        'HOST': 'SalesAndMarketingMS.mysql.pythonanywhere-services.com',
+        'PORT': '3306',
     }
 }
 
@@ -137,8 +137,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
-STATIC_ROOT = os.path.join(BASE_DIR, "staticFiles")
-
 LOGIN_REDIRECT_URL = 'homePage'
 LOGIN_URL = 'login'
 
