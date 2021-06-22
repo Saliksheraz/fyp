@@ -1,0 +1,132 @@
+{% extends 'administrator/baseTemplate.html' %}
+{% load static %}
+{% block navbar %}
+    <li class="breadcrumb-item">Home Page</li>
+{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+{% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="card" style="padding: 50px">
+        <div class="">
+            <div class="row">
+                <h4>Today's Analytics</h4>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Comparision Tasks Attendance</h5>
+                            <div id="donutAttendance" style="height: 250px;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Comparision Reports Submission</h5>
+                            <div id="donutReports" style="height: 250px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <h4>Attendance Data of Prev Month</h4>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Marked Attendances</h5>
+                            <div id="total" style="height: 250px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Tasks Completed</h5>
+                            <div id="completed" style="height: 250px;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Tasks Pending</h5>
+                            <div id="pending" style="height: 250px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        new Morris.Line({
+            element: 'total',
+            data: [
+                {% for each in list %}
+                    {date: '{{each.date}}', value: '{{each.total}}'},
+                {% endfor %}
+            ],
+            xkey: 'date',
+            ykeys: ['value'],
+            labels: ['Marked Attendance']
+        });
+        new Morris.Line({
+            element: 'completed',
+            data: [
+                {% for each in list %}
+                    {date: '{{each.date}}', value: '{{each.completed}}'},
+                {% endfor %}
+            ],
+            xkey: 'date',
+            ykeys: ['value'],
+            labels: ['Tasks Completed']
+        });
+        new Morris.Line({
+            element: 'pending',
+            data: [
+                {% for each in list %}
+                    {date: '{{each.date}}', value: '{{each.pending}}'},
+                {% endfor %}
+            ],
+            xkey: 'date',
+            ykeys: ['value'],
+            labels: ['Tasks Pending']
+        });
+        Morris.Donut({
+            element: 'donutAttendance',
+            data: [
+                {label: "Total Marked", value: '{{todaysTotal}}'},
+                {label: "Tasks Completed", value: '{{todaysCompleted}}'},
+                {label: "Tasks Pending", value: '{{todaysPending}}'},
+            ], colors: [
+                'blue',
+                'green',
+                '#F5F000',
+            ]
+        });
+        Morris.Donut({
+            element: 'donutReports',
+            data: [
+                {label: "Total Marked", value: '{{todaysTotalReport}}'},
+                {label: "Tasks Completed", value: '{{todaysCompletedReport}}'},
+                {label: "Tasks Pending", value: '{{todaysPendingReport}}'},
+            ], colors: [
+                'blue',
+                'green',
+                '#F5F000',
+            ]
+        });
+    </script>
+{% endblock %}
+

@@ -1,11 +1,10 @@
 from django.contrib.auth.models import User
 from django.db import models
-from django_countries.fields import CountryField
 
 
 class Company(models.Model):
     name = models.CharField(max_length=200, verbose_name="Company", null=True, unique=True)
-    country = CountryField(blank=True, null=True)
+    country = models.CharField(max_length=200, blank=True, null=True)
     weblink = models.CharField(max_length=200, blank=True, null=True)
     city = models.CharField(max_length=50, blank=True, null=True)
     street_address = models.TextField(blank=True, null=True)
@@ -35,8 +34,16 @@ class Tasks(models.Model):
     latitude = models.CharField(max_length=50, null=True, blank=True)
     longitude = models.CharField(max_length=50, null=True, blank=True)
     loc_name = models.CharField(max_length=200, null=True, blank=True)
+
+    client = models.CharField(max_length=50, null=True, blank=True)
+    telephone1 = models.CharField(max_length=50, null=True, blank=True)
+    telephone2 = models.CharField(max_length=50, null=True, blank=True)
+    address = models.CharField(max_length=50, null=True, blank=True)
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, blank=True, null=True)
+    picture = models.ImageField(null=True, blank=True)
+
     dateCreation = models.DateTimeField(auto_now=True, null=True)
-    datetime = models.DateTimeField(null=True, blank=True)
+    dateTime = models.DateTimeField(null=True, blank=True)
     desc = models.TextField(verbose_name="Description", null=True, blank=True)
     team = models.ForeignKey(Team, on_delete=models.CASCADE, blank=True, null=True)
     createdBy = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
@@ -54,7 +61,7 @@ class Attendance(models.Model):
     picture = models.ImageField(null=True, blank=True)
     feedback = models.CharField(max_length=200, null=True, blank=True)
     dateCreation = models.DateTimeField(auto_now=True, null=True)
-    date = models.DateTimeField(null=True, blank=True)
+    dateTime = models.DateTimeField(null=True)
     status_choice = [
         ('Completed', 'Completed'),
         ('Pending', 'Pending'),
@@ -71,6 +78,11 @@ class Reports(models.Model):
     latitude = models.CharField(max_length=50, null=True)
     longitude = models.CharField(max_length=50, null=True)
     accuracy = models.CharField(max_length=50, null=True)
+    client = models.CharField(max_length=50, null=True, blank=True)
+    telephone1 = models.CharField(max_length=50, null=True, blank=True)
+    telephone2 = models.CharField(max_length=50, null=True, blank=True)
+    address = models.CharField(max_length=50, null=True, blank=True)
+    company = models.CharField(max_length=50, null=True, blank=True)
     picture = models.ImageField(null=True, blank=True)
     feedback = models.CharField(max_length=200, null=True, blank=True)
     dateCreation = models.DateTimeField(auto_now=True, null=True)

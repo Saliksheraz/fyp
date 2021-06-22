@@ -1,3 +1,5 @@
+import datetime
+import datedelta
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -40,7 +42,7 @@ def addTeam(request):
         if form.is_valid():
             form.save()
             messages.success(request, "Team created successfully !!!")
-            return redirect('viewTasks')
+            return redirect('homePage')
         else:
             messages.warning(request, form.errors)
     form = newTeamForm
@@ -72,6 +74,50 @@ def viewTasks(request):
 
 
 @login_required
+def viewAttendance(request):
+    allAttendance = Attendance.objects.all()
+    context = {'allAttendance': allAttendance}
+    return render(request, 'administrator/viewAttendance.html', context)
+
+
+@login_required
+def attendanceAnalytics(request):
+    today = datetime.date.today()
+    current_date = str(today)
+    current_year = int(current_date.split('-')[0])
+    current_month = int(current_date.split('-')[1])
+    current_day = int(current_date.split('-')[2])
+    date = datetime.date(current_year, current_month - 1, current_day)
+    list = []
+    while date <= today:
+        completed = Attendance.objects.filter(dateCreation__date=date, status='Completed').count()
+        pending = Attendance.objects.filter(dateCreation__date=date, status='Pending').count()
+        total = Attendance.objects.filter(dateCreation__date=date).count()
+        list.append(attnData(total, str(date), completed, pending))
+        date += datedelta.DAY
+    todaysTotal = Attendance.objects.filter(dateCreation__date=current_date).count()
+    todaysCompleted = Attendance.objects.filter(dateCreation__date=current_date, status='Completed').count()
+    todaysPending = Attendance.objects.filter(dateCreation__date=current_date, status='Pending').count()
+    todaysTotalReport = Reports.objects.filter(dateCreation__date=current_date).count()
+    todaysCompletedReport = Reports.objects.filter(dateCreation__date=current_date, status='Completed').count()
+    todaysPendingReport = Reports.objects.filter(dateCreation__date=current_date, status='Pending').count()
+
+    context = {'list': list, 'todaysTotal': todaysTotal, 'todaysCompleted': todaysCompleted,
+               'todaysPending': todaysPending, 'todaysTotalReport': todaysTotalReport,
+               'todaysCompletedReport': todaysCompletedReport,
+               'todaysPendingReport': todaysPendingReport}
+    return render(request, 'administrator/attendanceAnalytics.html', context)
+
+
+class attnData:
+    def __init__(self, total, date, completed, pending):
+        self.total = total
+        self.date = date
+        self.completed = completed
+        self.pending = pending
+
+
+@login_required
 def attendance(request, pk):
     object = Tasks.objects.get(id=pk)
     if request.method == 'POST':
@@ -79,7 +125,7 @@ def attendance(request, pk):
         if form.is_valid():
             form.instance.user = request.user
             form.save()
-            return redirect('homePage')
+            return redirect('viewAttendance')
         else:
             messages.warning(request, form.errors)
     form = attendanceForm
@@ -117,28 +163,28 @@ class UserViewSet(viewsets.ModelViewSet):
 class CompanyViewSet(viewsets.ModelViewSet):
     queryset = Company.objects.all()
     serializer_class = CompanySerializer
-
+    permission_classes = [permissions.IsAuthenticated]
 
 
 class TeamViewSet(viewsets.ModelViewSet):
     queryset = Team.objects.all()
     serializer_class = TeamSerializer
-
+    permission_classes = [permissions.IsAuthenticated]
 
 
 class TaskViewSet(viewsets.ModelViewSet):
     queryset = Tasks.objects.all()
     serializer_class = TasksSerializer
-
+    permission_classes = [permissions.IsAuthenticated]
 
 
 class AttendanceViewSet(viewsets.ModelViewSet):
     queryset = Attendance.objects.all()
     serializer_class = AttendanceSerializer
-
+    permission_classes = [permissions.IsAuthenticated]
 
 
 class ReportsViewSet(viewsets.ModelViewSet):
     queryset = Reports.objects.all()
     serializer_class = ReportsSerializer
-
+    permission_classes = [permissions.IsAuthenticated]

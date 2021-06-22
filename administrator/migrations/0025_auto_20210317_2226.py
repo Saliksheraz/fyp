@@ -17,7 +17,6 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=200, null=True, unique=True, verbose_name='Institute Name')),
                 ('weblink', models.URLField(blank=True, null=True)),
-                ('country', django_countries.fields.CountryField(blank=True, max_length=2, null=True)),
                 ('city', models.CharField(blank=True, max_length=50, null=True)),
                 ('street_address', models.TextField(blank=True, null=True)),
                 ('google_pin', models.URLField(blank=True, null=True)),

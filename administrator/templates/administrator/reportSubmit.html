@@ -7,28 +7,30 @@
             <div class="row mb-4">
                 <div class="col">
                     <div class="form-outline">
-                        <input type="text" name="task" id="form6Example1" class="form-control"/>
+                        <input type="text" name="task" class="form-control"/>
                         <label class="form-label">Task Name</label>
                     </div>
                 </div>
             </div>
-            <div class="row mb-4">
+            <div class="row mb-4" hidden>
                 <div class="col">
                     <div class="form-outline">
-                        <input id="latitude" name="latitude" type="text" class="form-control"/>
+                        <input id="latitude" name="latitude" type="text" class="form-control"
+                               value="33.578340786275405"/>
                         <label class="form-label">Latitude</label>
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-outline">
-                        <input id="longitude" name="longitude" type="text" class="form-control"/>
+                        <input id="longitude" name="longitude" type="text" class="form-control"
+                               value="73.06226744389521"/>
                         <label class="form-label">Longitude</label>
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-outline">
-                        <input id="accuracy" name="accuracy" type="text" class="form-control"/>
-                        <label class="form-label">Location Accuracy</label>
+                        <input name="accuracy" type="text" class="form-control" value="20m"/>
+                        <label class="form-label">Accuracy</label>
                     </div>
                 </div>
             </div>
@@ -43,10 +45,16 @@
                         <label class="form-label" for="status">Status</label>
                     </div>
                 </div>
-                            <div class="col">
+                <div class="col">
                     <div class="form-outline">
                         <label class="form-label">Picture</label>
                         <input name="picture" type="file"/>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-outline">
+                        <input id="dateTime" name="dateTime" type="text" class="form-control"/>
+                        <label class="form-label">Date Time</label>
                     </div>
                 </div>
             </div>
@@ -58,11 +66,19 @@
                     </div>
                 </div>
             </div>
+            <div style="padding: 10px">
+                <h4>Your Current Position | <strong style="color: royalblue">Accuracy: <span
+                        id="accuracy">20m</span></strong></h4>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3324.0708562206287!2d73.0599071!3d33.5775095!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38df9369960ba32f%3A0x273e6db08202b0f9!2sEngineering%20Wing%2C%20Khadim%20Hussain%20Rd%2C%20Lalazar%2C%20Rawalpindi%2C%20Punjab%2046000!5e0!3m2!1sen!2s!4v1624358590514!5m2!1sen!2s"
+                        width="100%" height="600" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
             <button type="submit" class="btn btn-primary btn-block mb-4" style="margin-top: 40px">Submit</button>
         </form>
     </div>
 
     <script>
+        $("#dateTime").val(new Date().toLocaleDateString());
+
         getLocation();
 
         function getLocation() {

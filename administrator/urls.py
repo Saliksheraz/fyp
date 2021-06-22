@@ -13,6 +13,8 @@ urlpatterns = [
 
     path('createTask/', views.createTask, name='createTask'),
     path('viewTasks/', views.viewTasks, name='viewTasks'),
+    path('viewAttendance/', views.viewAttendance, name='viewAttendance'),
+    path('attendanceAnalytics/', views.attendanceAnalytics, name='attendanceAnalytics'),
 
     url(r'attendance/(?P<pk>[0-9]+)/$', views.attendance, name='attendance'),
 

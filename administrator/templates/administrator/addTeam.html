@@ -24,6 +24,16 @@
                         <label class="form-label" for="form6Example1">Company Name</label>
                     </div>
                 </div>
+                <div class="col">
+                    <div class="form-outline">
+                        <select class="form-control" id="id_user" name="{{ form.head.name }}">
+                            {% for choice in form.head.field.choices %}
+                                <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                            {% endfor %}
+                        </select>
+                        <label class="form-label" for="form6Example1">Team Head</label>
+                    </div>
+                </div>
             </div>
             <div class="row mb-4">
                 <div class="col">

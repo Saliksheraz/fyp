@@ -1,54 +1,90 @@
 {% extends 'administrator/baseTemplate.html' %}
 {% block navbar %}
-<li class="breadcrumb-item">Add Company</li>
+    <li class="breadcrumb-item">Add Company</li>
 {% endblock %}
 {% load crispy_forms_tags %}
 {% block content %}
-<div class="" style="padding: 50px">
-    <form class="form-horizontal form_middle" enctype='multipart/form-data' id="new_company_form"
-          method="POST">{% csrf_token %}
-        <div class="row mb-4">
-            <div class="col">
-                <div class="form-outline">
-                    <input name="name" type="text" id="form6Example1" class="form-control"/>
-                    <label class="form-label" for="form6Example1">Task Name</label>
+    <div class="" style="padding: 50px">
+        <form class="form-horizontal form_middle" enctype='multipart/form-data' id="new_company_form"
+              method="POST">{% csrf_token %}
+            <div class="row mb-4">
+                <div class="col">
+                    <div class="form-outline">
+                        <input name="name" type="text" id="form6Example1" class="form-control"/>
+                        <label class="form-label" for="form6Example1">Task Name</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-outline">
+                        <select class="form-control" id="id_user" name="{{ form.team.name }}">
+                            {% for choice in form.team.field.choices %}
+                                <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                            {% endfor %}
+                        </select>
+                        <label class="form-label" for="form6Example1">Team</label>
+                    </div>
                 </div>
             </div>
-            <div class="col">
-                <div class="form-outline">
-                    <select class="form-control" id="id_user" name="{{ form.team.name }}">
-                        {% for choice in form.team.field.choices %}
-                        <option value="{{ choice.0 }}">{{ choice.1 }}</option>
-                        {% endfor %}
-                    </select>
-                    <label class="form-label" for="form6Example1">Team</label>
+            <div class="row mb-4">
+                <div class="col">
+                    <div class="form-outline">
+                        <input name="desc" type="text" class="form-control"/>
+                        <label class="form-label" for="form6Example1">Description</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-outline">
+                        <input name="loc_name" type="text" class="form-control"/>
+                        <label class="form-label" for="form6Example1">Location</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-outline">
+                        <input name="client" type="text" class="form-control"/>
+                        <label class="form-label" for="client">Client</label>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="row mb-4">
-            <div class="col">
-                <div class="form-outline">
-                    <input name="desc" type="text" class="form-control"/>
-                    <label class="form-label" for="form6Example1">Description</label>
+            <div class="row mb-4">
+                <div class="col">
+                    <div class="form-outline">
+                        <input name="telephone1" type="text" class="form-control"/>
+                        <label class="form-label" for="telephone1">TelePhone 1</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-outline">
+                        <input name="telephone2" type="text" class="form-control"/>
+                        <label class="form-label" for="telephone2">TelePhone 2</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-outline">
+                        <input id="dateTime" name="dateTime" type="text" class="form-control"/>
+                        <label class="form-label" for="dateTime">Date</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-outline">
+                        <label class="form-label">Picture</label>
+                        <input name="picture" type="file"/>
+                    </div>
                 </div>
             </div>
-            <div class="col">
-                <div class="form-outline">
-                    <input name="loc_name" type="text" class="form-control"/>
-                    <label class="form-label" for="form6Example1">Location</label>
+            <div class="row mb-4">
+                <div class="col">
+                    <div class="form-outline">
+                        <input type="text" class="form-control"/>
+                        <label class="form-label" for="form6Example1">Feedback</label>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="row mb-4">
-            <div class="col">
-                <div class="form-outline">
-                    <input type="text" class="form-control"/>
-                    <label class="form-label" for="form6Example1">Feedback</label>
-                </div>
-            </div>
-        </div>
 
-        <button type="submit" class="btn btn-primary btn-block mb-4" style="margin-top: 40px">Submit</button>
-    </form>
-</div>
+            <button type="submit" class="btn btn-primary btn-block mb-4" style="margin-top: 40px">Submit</button>
+        </form>
+    </div>
+    <script>
+
+        $("#dateTime").val(new Date().toLocaleDateString());
+    </script>
 {% endblock %}
